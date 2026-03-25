@@ -22,4 +22,4 @@ Currently, the maps are emmbedded into the game.
 At some point the game will likely be updated to store the
 maps on a seperate repo, and access them via HTTP requests.
 ### Custom Maps
-See
+See [MAPSREADME.md](https://github.com/BiffLord/Lizzy/blob/master/MAPSREADME.md)

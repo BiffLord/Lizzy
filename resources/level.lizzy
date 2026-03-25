@@ -1,0 +1,20 @@
+C reg
+// Leave comments with '//'
+//C reg: 0 - grey (wall/path), 1 = brown, 2 = purple, 3 = Red
+//4 - Pink, 5 = Yellow, 6 = Green
+//If you don't want to use standard colors,
+// Colors
+//0O = (r,g,b)
+//0C = (r,g,b)
+def board
+//1 2  3  4  5  6  7  8  9  A
+1O 0C 0O 0O 0O 0C 0C 0C 0C 0O
+0O 2C 0O 0C 0O 0C 0C 0O 3O 0O
+4O 0C 0O 0C 0O 0O 1C 0O 0C 0O
+0O 0C 0O 0C 0O 0C 0C 0C 0C 0O
+0O 5C 0O 0C 4C 0C 0O 3C 0O 0O
+0C 0C 0C 0C 0O 0C 0O 0C 0C 0O
+0C 0O 0O 0O 0O 0O 0O 0C 0C 0O
+0C 0O 0C 0C 0C 2O 0C 0C 0C 0O
+0C 0O 0C 0C 0C 0O 0C 0C 0C 5O
+0C 0O 0O 0O 0O 0O 0O 0O 6C 0O

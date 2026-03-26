@@ -6,8 +6,8 @@ import java.awt.Color;
 
 public class Level {
     private final Map<String, Color> colors = new HashMap<>();
-    public Color[][] colorMap = new Color[10][10];
     public Block[][] blockMap = new Block[10][10];
+    private GameScreen screen;
     public Level(List<String> lines){
         lines = lines.stream().filter(x->!x.startsWith("//")).filter(x->!(x.equals("\n"))).toList();
 
@@ -17,6 +17,9 @@ public class Level {
             readColorDefinition(new ArrayList<String>(lines));
         }
         readBoard(lines);
+    }
+    public void setScreen(GameScreen gs){
+        this.screen = gs;
     }
     private void regularColors(){
         colors.put("0O",Color.LIGHT_GRAY);

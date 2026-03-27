@@ -7,7 +7,6 @@ public class GameScreen extends JPanel {
     Level level;
     public GameScreen(Level level){
         this.level=level;
-        addMouseListener(new ClickDetector(this));
     }
     @Override
     protected void paintComponent(Graphics g){

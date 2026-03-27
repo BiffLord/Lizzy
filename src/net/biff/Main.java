@@ -25,6 +25,8 @@ public class Main{
         frame.setSize(900,900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         var screen = new GameScreen(l);
+        WaterManager wm = new WaterManager(l);
+        screen.addMouseListener(new ClickDetector(screen,wm));
         frame.add(screen);
         frame.setVisible(true);
     }

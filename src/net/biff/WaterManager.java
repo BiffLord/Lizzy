@@ -26,11 +26,18 @@ public class WaterManager {
                         level.blockMap[row][Math.max(column-1,0)].open &&
                         column>0){
                     level.blockMap[row][Math.max(column-1,0)].fill();
+                    continue;
                 }
                 if (!level.blockMap[row][Math.min(column+1,9)].waterlogged &&
                         level.blockMap[row][Math.min(column+1,9)].open &&
                         column<9){
                     level.blockMap[row][Math.min(column+1,9)].fill();
+                    continue;
+                }
+                if (!level.blockMap[Math.max(row-1,0)][column].waterlogged &&
+                        level.blockMap[Math.max(row-1,0)][column].open &&
+                        row > 0){
+                    level.blockMap[Math.max(row-1,0)][column].fill();
                 }
             }
         }

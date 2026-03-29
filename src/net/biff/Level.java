@@ -63,4 +63,7 @@ public class Level {
             boardRow += 1;
         }
     }
+    private void readMetaData(List<String> lines){
+
+    }
 }

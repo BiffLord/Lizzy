@@ -25,13 +25,14 @@ public class WaterManager {
             if (block.moved){
                 continue;
             }
-            if (!level.blockMap[Math.min(p.x + 1, 9)][p.y].waterlogged &&
-                    level.blockMap[Math.min(p.x + 1, 9)][p.y].open &&
-                    p.x < 9){
-                level.blockMap[Math.min(p.x + 1, 9)][p.y].fill();
+            //"Ms. Eliza Bennet!"
+            if (!level.blockMap[Math.min(p.x + 1, level.verticalBlocks-1)][p.y].waterlogged &&
+                    level.blockMap[Math.min(p.x + 1, level.verticalBlocks-1)][p.y].open &&
+                    p.x < level.verticalBlocks-1){
+                level.blockMap[Math.min(p.x + 1,level.verticalBlocks-1)][p.y].fill();
                 block.drain();
                 Point newPoint;
-                if (!paths.contains(newPoint = new Point(Math.min(p.x + 1, 9),p.y))){
+                if (!paths.contains(newPoint = new Point(Math.min(p.x + 1, level.verticalBlocks-1),p.y))){
                     addable.add(newPoint);
                 }
                 continue;
@@ -47,13 +48,16 @@ public class WaterManager {
                 }
                 continue;
             }
-            if (!level.blockMap[p.x][Math.min(p.y+1,9)].waterlogged &&
-                    level.blockMap[p.x][Math.min(p.y+1,9)].open &&
-                    p.y<9){
-                level.blockMap[p.x][Math.min(p.y+1,9)].fill();
+            //"It is a truth universally acknowledged,
+            //that a single man in possession of a good fortune,
+            //must be in want of a wife"
+            if (!level.blockMap[p.x][Math.min(p.y+1,level.horizontalBlocks-1)].waterlogged &&
+                    level.blockMap[p.x][Math.min(p.y+1,level.horizontalBlocks-1)].open &&
+                    p.y<level.horizontalBlocks-1){
+                level.blockMap[p.x][Math.min(p.y+1,level.horizontalBlocks-1)].fill();
                 block.drain();
                 Point newPoint;
-                if (!paths.contains(newPoint = new Point(p.x, Math.min(p.y+1,9)))){
+                if (!paths.contains(newPoint = new Point(p.x, Math.min(p.y+1,level.horizontalBlocks-1)))){
                     addable.add(newPoint);
                 }
                 continue;

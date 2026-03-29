@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Level {
     private final Map<String, Color> colors = new HashMap<>();
-    public Block[][] blockMap = new Block[10][10];
+    public Block[][] blockMap;
     public String name;
     public String creator;
     public int horizontalBlocks;
@@ -24,6 +24,7 @@ public class Level {
     public Level(List<String> lines){
         lines = lines.stream().filter(x->!x.startsWith("//")).filter(x->!(x.equals("\n"))).toList();
         readMetaData(lines);
+        blockMap = new Block[horizontalBlocks][verticalBlocks];
         if (lines.getFirst().equals("C reg")){
             regularColors();
         } else {
@@ -72,7 +73,7 @@ public class Level {
                 }else {
                     color = colors.get(bits[column].substring(0, 1));
                 }
-                blockMap[boardRow][column] = new Block((column+1)*75,(boardRow+1)*75, color, open);
+                blockMap[boardRow][column] = new Block((column+1)*(blockLength+5),(boardRow+1)*(blockLength+5), color, open, blockLength);
             }
             boardRow += 1;
         }
@@ -172,6 +173,10 @@ public class Level {
             verticalOffset = 75;
         } if (blockLength == 0){
             blockLength = 70;
+        }if (start == null){
+            start = new Point(0,0);
+        }if (end == null){
+            end = new Point(horizontalBlocks-1,horizontalBlocks-1);
         }
     }
 }

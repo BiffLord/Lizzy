@@ -23,13 +23,13 @@ public class GameScreen extends JPanel {
             Font f = new Font("Times New Roman",Font.PLAIN, 25);
             g2d.setFont(f);
             FontMetrics fm = g2d.getFontMetrics(f);
-            g2d.drawString("Won",450-fm.stringWidth("Won"),50);
+            g2d.drawString("Won",level.windowWidth/2-fm.stringWidth("Won"),50);
         }else if (win.won.equals(WinState.LOST)){
             Graphics2D g2d = (Graphics2D) g;
             Font f = new Font("Times New Roman",Font.PLAIN, 25);
             g2d.setFont(f);
             FontMetrics fm = g2d.getFontMetrics(f);
-            g2d.drawString("lost",450-fm.stringWidth("Lost"),50);
+            g2d.drawString("lost",level.windowWidth/2-fm.stringWidth("Lost"),50);
         }
     }
 }

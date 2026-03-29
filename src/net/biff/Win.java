@@ -7,9 +7,9 @@ public class Win {
         this.level = level;
     }
     public boolean checkWin(){
-        if (level.blockMap[9][9].waterlogged) {
+        if (level.blockMap[level.end.x][level.end.y].waterlogged) {
             won = WinState.WON;
         }
-        return level.blockMap[9][9].waterlogged;
+        return level.blockMap[level.end.x][level.end.y].waterlogged;
     }
 }

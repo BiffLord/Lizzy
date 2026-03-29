@@ -12,7 +12,7 @@ public class WaterManager {
     private final List<Point> paths = new ArrayList<>();
     public WaterManager(Level level) {
         this.level = level;
-        paths.add(new Point(0,0));
+        paths.add(level.start);
     }
     //Capital! Capital!
     public boolean spreadWater(){
@@ -79,10 +79,10 @@ public class WaterManager {
                 block.moved = false;
             }
         }
-        if (level.blockMap[0][0].waterlogged){
+        if (level.blockMap[level.start.x][level.start.y].waterlogged){
             return false;
         }
-        level.blockMap[0][0].waterlogged = true;
+        level.blockMap[level.start.x][level.start.y].waterlogged = true;
         return true;
     }
     public void dry(){
@@ -92,6 +92,6 @@ public class WaterManager {
             level.blockMap[p.x][p.y].drain();
             i.remove();
         }
-        paths.add(new Point(0,0));
+        paths.add(level.start);
     }
 }

@@ -87,7 +87,6 @@ public class WaterManager {
             Point p = i.next();
             level.blockMap[p.x][p.y].drain();
             i.remove();
-            System.out.println(level.blockMap[0][0].waterlogged);
         }
         paths.add(new Point(0,0));
     }

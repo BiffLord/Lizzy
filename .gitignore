@@ -1,9 +1,10 @@
+/Lizzy/
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
-
+resources/META-INF/
 ### Eclipse ###
 .apt_generated
 .classpath

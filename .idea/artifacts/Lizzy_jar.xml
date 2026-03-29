@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Lizzy:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Lizzy_jar</output-path>
+    <root id="archive" name="Lizzy.jar">
+      <element id="module-output" name="Lizzy" />
+    </root>
+  </artifact>
+</component>

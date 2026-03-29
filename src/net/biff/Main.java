@@ -1,24 +1,26 @@
 package net.biff;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 public class Main{
-    public static void main(String[] args) throws FileNotFoundException {
-        String FP ="C:\\Users\\saahi\\Desktop\\JavaProjects\\Lazzy\\resources\\level.lizzy";
+    public static void main(String[] args) throws IOException {
         List<String> lines = new ArrayList<>();
-        try (FileReader fr = new FileReader(FP);
-             BufferedReader br = new BufferedReader(fr)){
+        var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/level.lizzy");
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        http.setRequestMethod("GET");
+        http.setConnectTimeout(5000);
+        http.setReadTimeout(5000);
+        if (http.getResponseCode() != HttpURLConnection.HTTP_OK){
+            throw new IOException();
+        }
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(http.getInputStream()))){
             String line;
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine())!=null){
                 lines.add(line);
             }
-        }catch (IOException e){
-            throw new RuntimeException(e);
         }
         Level l = new Level(lines);
         JFrame frame = new JFrame("Lizzy");

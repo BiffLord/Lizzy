@@ -1,25 +1,35 @@
 package net.biff;
 
+import java.awt.*;
 import java.util.*;
-import java.awt.Color;
+import java.util.List;
 
 
 public class Level {
     private final Map<String, Color> colors = new HashMap<>();
     public Block[][] blockMap = new Block[10][10];
-    private GameScreen screen;
+    public String name;
+    public String creator;
+    public int horizontalBlocks;
+    public int verticalBlocks;
+    public int horizontalOffset;
+    public int verticalOffset;
+    public int blockLength;
+    public int windowWidth;
+    public int windowHeight;
+    public Point start;
+    public Point end;
+
+
     public Level(List<String> lines){
         lines = lines.stream().filter(x->!x.startsWith("//")).filter(x->!(x.equals("\n"))).toList();
-
+        readMetaData(lines);
         if (lines.getFirst().equals("C reg")){
             regularColors();
         } else {
             readColorDefinition(new ArrayList<String>(lines));
         }
         readBoard(lines);
-    }
-    public void setScreen(GameScreen gs){
-        this.screen = gs;
     }
     private void regularColors(){
         colors.put("0O",Color.LIGHT_GRAY);
@@ -31,14 +41,18 @@ public class Level {
         colors.put("5",Color.YELLOW);
         colors.put("6",Color.GREEN);
     }
-    /// //////// FINISH THIS
+    /////////// FINISH THIS
     private void readColorDefinition(List<String> lines){
         lines.removeFirst();
-        boolean board = false;
+        boolean removable = true;
         Iterator<String> i = lines.iterator();
         while (i.hasNext()){
-            if (board || i.next().equals("def board")){
-                board = true;
+            String n;
+            if ((n = i.next()).equals("C reg")||n.equals("def Colors")){
+                removable = false;
+            }
+            if (removable || n.equals("def board")){
+                removable = true;
                 i.remove();
             }
         }
@@ -64,6 +78,100 @@ public class Level {
         }
     }
     private void readMetaData(List<String> lines){
-
+        for (String line : lines){
+            if (line.equals("C reg") || line.equals("def Colors")){
+                break;
+            }
+            String[] entry = line.split(": ");
+            String number = "[0-9]+";
+            switch (entry[0].toLowerCase()){
+                case "creator": creator = entry[1]; break;
+                case "horizontal-blocks":
+                    if (entry[1].matches(number)){
+                        horizontalBlocks = Integer.parseInt(entry[1]);
+                    } break;
+                case "vertical-blocks":
+                    if (entry[1].matches(number)){
+                        verticalBlocks = Integer.parseInt(entry[1]);
+                    } break;
+                case "horizontal-offset":
+                    if (entry[1].matches(number)){
+                        horizontalOffset = Integer.parseInt(entry[1]);
+                    } break;
+                case "vertical-offset":
+                    if (entry[1].matches(number)){
+                        verticalOffset = Integer.parseInt(entry[1]);
+                    } break;
+                case "window-width":
+                    if (entry[1].matches(number)){
+                        windowWidth = Integer.parseInt(entry[1]);
+                    } break;
+                case "window-height":
+                    if (entry[1].matches(number)){
+                        windowHeight = Integer.parseInt(entry[1]);
+                    } break;
+                case "block-length":
+                    if (entry[1].matches(number)){
+                        blockLength = Integer.parseInt(entry[1]);
+                    } break;
+                case "start":
+                    String[] processed = entry[1].replaceAll("([\\]\\[])","").split(",");
+                    start = new Point(Integer.parseInt(processed[0]),Integer.parseInt(processed[1]));
+                    break;
+                case "end":
+                    String[] process = entry[1].replaceAll("([\\]\\[])","").split(",");
+                    end = new Point(Integer.parseInt(process[0]),Integer.parseInt(process[1]));
+                    break;
+            }
+        }
+        fixMetaData();
+    }
+    private void fixMetaData(){
+        //Horizontal values
+        boolean repeatable = false;
+        if (windowWidth == 0 && horizontalBlocks != 0 && horizontalOffset != 0 && blockLength !=0){
+            windowWidth = horizontalBlocks*blockLength+2*horizontalOffset;
+        }if (windowWidth != 0 && horizontalBlocks == 0 && horizontalOffset != 0 && blockLength !=0){
+            horizontalBlocks = (windowWidth-2*horizontalOffset)/blockLength;
+        }if (windowWidth != 0 && horizontalBlocks != 0 && horizontalOffset == 0 && blockLength !=0){
+            horizontalOffset = (windowWidth-horizontalBlocks*blockLength)/2;
+        }if (windowWidth != 0 && horizontalBlocks != 0 && horizontalOffset != 0 && blockLength == 0){
+            blockLength = (windowWidth-2*horizontalOffset)/horizontalBlocks;
+        }
+        //vertical Values
+        if (windowHeight == 0 && verticalBlocks != 0 && verticalOffset != 0 && blockLength !=0){
+            windowHeight = verticalBlocks*blockLength+2*verticalOffset;
+            repeatable = true;
+        }if (windowHeight != 0 && verticalBlocks == 0 && verticalOffset != 0 && blockLength !=0){
+            verticalBlocks = (windowHeight-2*verticalOffset)/blockLength;
+            repeatable = true;
+        }if (windowHeight != 0 && verticalBlocks != 0 && verticalOffset == 0 && blockLength !=0){
+            verticalOffset = (windowHeight-verticalBlocks*blockLength)/2;
+            repeatable = true;
+        }if (windowHeight != 0 && verticalBlocks != 0 && verticalOffset != 0 && blockLength == 0){
+            blockLength = (windowHeight-2*verticalOffset)/horizontalBlocks;
+            repeatable = true;
+        }
+        if (repeatable){fixMetaData();return;}
+        defaultMetaData();
+    }
+    private void defaultMetaData(){
+        if (windowWidth == 0){
+            windowWidth = 900;
+        }if (windowHeight == 0){
+            windowHeight = 900;
+        }if (creator == null){
+            creator = "Anonymous";
+        }if (horizontalBlocks == 0){
+            horizontalBlocks = 10;
+        }if (verticalBlocks == 0){
+            verticalBlocks = 10;
+        }if (horizontalOffset == 0){
+            horizontalOffset = 75;
+        }if (verticalOffset == 0){
+            verticalOffset = 75;
+        } if (blockLength == 0){
+            blockLength = 70;
+        }
     }
 }

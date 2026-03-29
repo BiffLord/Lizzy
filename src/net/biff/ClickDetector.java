@@ -28,12 +28,14 @@ public class ClickDetector extends MouseAdapter {
         }
         int x = e.getX();
         int y = e.getY();
-        int row = (y-75)/75;
-        int col = (x-75)/75;
-        if ((float)(y-75)/75 < 0 ||
-                (float)(y-75)/75 >= 10 ||
-                (float)(x-75)/75 < 0 ||
-                (float)(x-75)/75 >= 10){
+        //Hey Plaatic, some help overhere?
+        int padded = screen.level.blockLength+5;
+        int row = (y-padded)/padded;
+        int col = (x-padded)/padded;
+        if ((float)(y-padded)/padded < 0 ||
+                (float)(y-padded)/padded >= 10 ||
+                (float)(x-padded)/padded < 0 ||
+                (float)(x-padded)/padded >= 10){
             //water();
             active = true;
             Timer t = new Timer(500,null);

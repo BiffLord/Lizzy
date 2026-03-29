@@ -24,11 +24,11 @@ public class Main{
         }
         Level l = new Level(lines);
         JFrame frame = new JFrame("Lizzy");
-        frame.setSize(900,900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Win win = new Win(l);
         var screen = new GameScreen(l, win);
         WaterManager wm = new WaterManager(l);
+        frame.setSize(l.windowWidth,l.windowHeight);
         screen.addMouseListener(new ClickDetector(screen,wm,win));
         frame.add(screen);
         frame.setVisible(true);

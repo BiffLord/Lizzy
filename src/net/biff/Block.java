@@ -15,6 +15,9 @@ public class Block extends Rectangle {
     public void draw(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(5.0f));
+        if (color == null){
+            return;
+        }
         if (waterlogged){
             g2d.setColor(Color.BLUE);
             g2d.fillRect(x,y,width,height);

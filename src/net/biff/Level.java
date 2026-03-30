@@ -22,7 +22,7 @@ public class Level {
 
 
     public Level(List<String> lines){
-        lines = lines.stream().filter(x->!x.startsWith("//")).filter(x->!(x.equals("\n"))).toList();
+        lines = new ArrayList<>(lines.stream().filter(x->!x.startsWith("//")).filter(x->!(x.equals("\n"))).toList());
         readMetaData(lines);
         blockMap = new Block[horizontalBlocks][verticalBlocks];
         if (lines.getFirst().equals("C reg")){
@@ -35,12 +35,13 @@ public class Level {
     private void regularColors(){
         colors.put("0O",Color.LIGHT_GRAY);
         colors.put("0C",Color.DARK_GRAY);
-        colors.put("1",new Color(92, 64, 51));
+        colors.put("1",null);
         colors.put("2",new Color(83, 40, 89));
         colors.put("3",new Color(139,0,0));
         colors.put("4",new Color(199,21,133));
         colors.put("5",Color.YELLOW);
         colors.put("6",Color.GREEN);
+        colors.put("7",new Color(92, 64, 51));
     }
     /////////// FINISH THIS
     private void readColorDefinition(List<String> lines){
@@ -73,16 +74,21 @@ public class Level {
                 }else {
                     color = colors.get(bits[column].substring(0, 1));
                 }
-                blockMap[boardRow][column] = new Block((column+1)*(blockLength+5),(boardRow+1)*(blockLength+5), color, open, blockLength);
+                blockMap[boardRow][column] = new Block((column)*(blockLength+5)+verticalOffset,(boardRow)*(blockLength+5)+horizontalOffset, color, open, blockLength);
             }
             boardRow += 1;
         }
     }
     private void readMetaData(List<String> lines){
-        for (String line : lines){
-            if (line.equals("C reg") || line.equals("def Colors")){
-                break;
+        Iterator<String> it = lines.iterator();
+        boolean nonMeta = false;
+        while (it.hasNext()){
+            String line = it.next();
+            if (line.equals("C reg") || line.equals("def Colors") || nonMeta){
+                nonMeta = true;
+                continue;
             }
+            it.remove();
             String[] entry = line.split(": ");
             String number = "[0-9]+";
             switch (entry[0].toLowerCase()){
@@ -116,11 +122,11 @@ public class Level {
                         blockLength = Integer.parseInt(entry[1]);
                     } break;
                 case "start":
-                    String[] processed = entry[1].replaceAll("([\\]\\[])","").split(",");
+                    String[] processed = entry[1].replace("(","").replace(")","").split(",");
                     start = new Point(Integer.parseInt(processed[0]),Integer.parseInt(processed[1]));
                     break;
                 case "end":
-                    String[] process = entry[1].replaceAll("([\\]\\[])","").split(",");
+                    String[] process = entry[1].replace("(","").replace(")","").split(",");
                     end = new Point(Integer.parseInt(process[0]),Integer.parseInt(process[1]));
                     break;
             }

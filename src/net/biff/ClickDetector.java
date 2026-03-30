@@ -30,16 +30,16 @@ public class ClickDetector extends MouseAdapter {
         int y = e.getY();
         //Hey Plaatic, some help overhere?
         int padded = screen.level.blockLength+5;
-        int row = (y-padded)/padded;
-        int col = (x-padded)/padded;
+        int row = (y-screen.level.verticalOffset)/padded;
+        int col = (x-screen.level.horizontalOffset)/padded;
         if ((float)(y-padded)/padded < 0 ||
-                (float)(y-padded)/padded >= 10 ||
+                (float)(y-padded)/padded >= screen.level.horizontalBlocks ||
                 (float)(x-padded)/padded < 0 ||
-                (float)(x-padded)/padded >= 10){
+                (float)(x-padded)/padded >= screen.level.verticalBlocks){
             //water();
             active = true;
             Timer t = new Timer(500,null);
-            t.addActionListener(ev-> {
+            t.addActionListener(_ ->{
                 boolean cont = wm.spreadWater();
                 if (!cont){
                     t.stop();
@@ -57,9 +57,15 @@ public class ClickDetector extends MouseAdapter {
             t.start();
         }
         Color color = screen.level.blockMap[row][col].color;
+        if (color == null){
+            return;
+        }
         if (color.equals(Color.LIGHT_GRAY) || color.equals(Color.DARK_GRAY)){ return;}
         for (Block[] line : screen.level.blockMap){
             for (Block block : line){
+                if (block.color == null){
+                    continue;
+                }
                 if (block.color.equals(color)){
                     block.open = !block.open;
                 }

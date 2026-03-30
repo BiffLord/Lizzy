@@ -8,7 +8,7 @@ import java.util.List;
 public class Main{
     public static void main(String[] args) throws IOException {
         List<String> lines = new ArrayList<>();
-        var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/level.lizzy");
+        var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/pigg.lizzy");
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setRequestMethod("GET");
         http.setConnectTimeout(5000);

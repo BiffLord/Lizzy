@@ -184,5 +184,6 @@ public class Level {
         }if (end == null){
             end = new Point(horizontalBlocks-1,horizontalBlocks-1);
         }
+        windowHeight+=30;
     }
 }

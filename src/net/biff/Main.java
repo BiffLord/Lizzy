@@ -1,14 +1,19 @@
 package net.biff;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 public class Main{
     public static void main(String[] args) throws IOException {
+        JFrame fr = new JFrame("Testing");
+        fr.setSize(100,100);
+        fr.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        fr.setVisible(true);
         List<String> lines = new ArrayList<>();
-        var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/pigg.lizzy");
+        var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/level.lizzy");
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setRequestMethod("GET");
         http.setConnectTimeout(5000);
@@ -24,6 +29,7 @@ public class Main{
         }
         Level l = new Level(lines);
         JFrame frame = new JFrame("Lizzy");
+        frame.setIconImage(new ImageIcon(Main.class.getResource("/favicon.png")).getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Win win = new Win(l);
         var screen = new GameScreen(l, win);

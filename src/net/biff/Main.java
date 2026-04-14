@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 public class Main{
     public static void main(String[] args) throws IOException {
-        JFrame fr = new JFrame("Testing");
-        fr.setSize(100,100);
+        JFrame fr = new JFrame("Map Selector");
+        fr.setSize(500,500);
         fr.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         fr.setVisible(true);
+        fr.setIconImage(new ImageIcon(Main.class.getResource("/favicon.png")).getImage());
         List<String> lines = new ArrayList<>();
         var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/level.lizzy");
         HttpURLConnection http = (HttpURLConnection) url.openConnection();

@@ -1,4 +1,4 @@
-package net.biff;
+package net.biff.game;
 
 public class Win {
     private final Level level;

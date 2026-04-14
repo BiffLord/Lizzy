@@ -1,4 +1,4 @@
-package net.biff;
+package net.biff.game;
 
 import java.awt.*;
 

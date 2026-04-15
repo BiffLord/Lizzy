@@ -16,9 +16,14 @@ public class Main{
         JFrame fr = new JFrame("Map Selector");
         fr.setSize(500,500);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setVisible(true);
         fr.setIconImage(favicon);
-        fr.setLayout(new GridLayout(2,1));
+        MapList mapList = new MapList(new String[]{"Random","Wynn","Pigglesworth"},new String[]{"www.example.com"});
+        JScrollPane scroll = new JScrollPane(mapList);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setPreferredSize(new Dimension(488,500));
+        fr.add(scroll,BorderLayout.EAST);
+        fr.setVisible(true);
 
 
         //real window

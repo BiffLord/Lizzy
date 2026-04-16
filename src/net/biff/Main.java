@@ -24,12 +24,13 @@ public class Main{
                 "https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/pigg.lizzy"
         };
         MapList mapList = new MapList(new String[]{"Random","Wynn","Pigglesworth"},links);
+        mapList.addMouseListener(new MapSelectorClickDetector(mapList,fr));
         JScrollPane scroll = new JScrollPane(mapList);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(488,500));
+        mapList.scrollHeight = () -> scroll.getVerticalScrollBar().getValue();
         fr.add(scroll,BorderLayout.EAST);
-        //fr.addMouseListener(new MapSelectorClickDetector(mapList));
         fr.pack();
         fr.setVisible(true);
 

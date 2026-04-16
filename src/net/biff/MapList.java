@@ -2,11 +2,13 @@ package net.biff;
 
 import javax.swing.*;
 import java.awt.*;
-import java.security.PrivateKey;
+import java.util.function.Supplier;
+
 
 public class MapList extends JTextArea {
     private static Font font = new Font("Book Antiqua",Font.PLAIN,24);
     private String[] mapLinks;
+    Supplier<Integer> scrollHeight;
     public MapList(String[] items, String[] mapLinks){
         StringBuilder sb = new StringBuilder();
         for (String s : items){
@@ -15,7 +17,6 @@ public class MapList extends JTextArea {
         setText(sb.toString());
         setFocusable(false);
         setFont(font);
-        addMouseListener(new MapSelectorClickDetector(this));
         this.mapLinks = mapLinks;
     }
     public String[] getMapLinks(){

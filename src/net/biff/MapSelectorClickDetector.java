@@ -17,7 +17,6 @@ public class MapSelectorClickDetector extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Click!");
         int y = e.getY()+mapList.scrollHeight.get();
         FontMetrics fm = mapList.getFontMetrics(mapList.getFont());
         int height = fm.getHeight();

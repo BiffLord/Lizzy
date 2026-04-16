@@ -9,40 +9,36 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 public class Main{
+    private static Image favicon = new ImageIcon(Main.class.getResource("/favicon.png")).getImage();
+
     public static void main(String[] args) throws IOException {
-        Image favicon = new ImageIcon(Main.class.getResource("/favicon.png")).getImage();
 
         //Map Selector
         JFrame fr = new JFrame("Map Selector");
         fr.setSize(500,500);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setIconImage(favicon);
-        MapList mapList = new MapList(new String[]{"Random","Wynn","Pigglesworth"},new String[]{"www.example.com"});
+        String[] links = new String[]{
+                null,
+                "https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/level.lizzy",
+                "https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/pigg.lizzy"
+        };
+        MapList mapList = new MapList(new String[]{"Random","Wynn","Pigglesworth"},links);
         JScrollPane scroll = new JScrollPane(mapList);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setPreferredSize(new Dimension(488,500));
         fr.add(scroll,BorderLayout.EAST);
+        //fr.addMouseListener(new MapSelectorClickDetector(mapList));
+        fr.pack();
         fr.setVisible(true);
 
-
         //real window
-        Level l = getLevel();
-        JFrame frame = new JFrame("Lizzy");
-        frame.setIconImage(favicon);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Win win = new Win(l);
-        var screen = new GameScreen(l, win);
-        WaterManager wm = new WaterManager(l);
-        frame.setSize(l.windowWidth,l.windowHeight);
-        screen.addMouseListener(new ClickDetector(screen,wm,win));
-        frame.add(screen);
-        frame.setVisible(true);
     }
 
-    private static Level getLevel() throws IOException {
+    private static Level getLevel(String link) throws IOException {
         List<String> lines = new ArrayList<>();
-        var url = new URL("https://raw.githubusercontent.com/BiffLord/LizzyArchives/refs/heads/master/Maps/level.lizzy");
+        var url = new URL(link);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         http.setRequestMethod("GET");
         http.setConnectTimeout(5000);
@@ -58,6 +54,19 @@ public class Main{
         }
         Level l = new Level(lines);
         return l;
+    }
+    public static void gameWindow(String link) throws IOException {
+        Level l = getLevel(link);
+        JFrame frame = new JFrame("Lizzy");
+        frame.setIconImage(favicon);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Win win = new Win(l);
+        var screen = new GameScreen(l, win);
+        WaterManager wm = new WaterManager(l);
+        frame.setSize(l.windowWidth,l.windowHeight);
+        screen.addMouseListener(new ClickDetector(screen,wm,win));
+        frame.add(screen);
+        frame.setVisible(true);
     }
 
 }

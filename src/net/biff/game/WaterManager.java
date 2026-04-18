@@ -12,7 +12,7 @@ public class WaterManager {
     public WaterManager(Level level) {
         this.level = level;
         paths.add(level.start);
-        level.blockMap[level.start.y][level.start.x].waterlogged = true;
+        level.blockMap[level.start.x][level.start.y].waterlogged = true;
     }
     //Capital! Capital!
     public boolean spreadWater(){

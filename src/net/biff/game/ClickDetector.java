@@ -32,10 +32,11 @@ public class ClickDetector extends MouseAdapter {
         int padded = screen.level.blockLength+5;
         int row = (y-screen.level.verticalOffset)/padded;
         int col = (x-screen.level.horizontalOffset)/padded;
-        if ((float)(y-padded)/padded < 0 ||
-                (float)(y-padded)/padded >= screen.level.horizontalBlocks ||
-                (float)(x-padded)/padded < 0 ||
-                (float)(x-padded)/padded >= screen.level.verticalBlocks){
+        System.out.println(col);
+        if (col < 0 ||
+                col >= screen.level.horizontalBlocks ||
+                row < 0 ||
+                row >= screen.level.verticalBlocks){
             //water();
             active = true;
             Timer t = new Timer(500,null);
@@ -55,6 +56,7 @@ public class ClickDetector extends MouseAdapter {
 
             });
             t.start();
+            return;
         }
         Color color = screen.level.blockMap[row][col].color;
         if (color == null){

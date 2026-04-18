@@ -1,14 +1,28 @@
 package net.biff.game;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GameScreen extends JPanel {
     Level level;
     Win win;
+    BufferedImage start;
+    BufferedImage end;
     public GameScreen(Level level, Win win){
         this.level=level;
         this.win = win;
+        try (InputStream iss = GameScreen.class.getResourceAsStream("/startNoBG.png");
+             InputStream ise = GameScreen.class.getResourceAsStream("/bukkitNoBG.png");){
+            assert iss != null && ise != null;
+            start = ImageIO.read(iss);
+            end = ImageIO.read(ise);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @Override
     protected void paintComponent(Graphics g){
@@ -31,5 +45,12 @@ public class GameScreen extends JPanel {
             FontMetrics fm = g2d.getFontMetrics(f);
             g2d.drawString("lost",level.windowWidth/2-fm.stringWidth("Lost"),level.verticalOffset/2);
         }
+        int imageLength = (int) (level.blockLength*0.9);
+        int y = level.start.x*(level.blockLength+5)+level.horizontalOffset+(level.blockLength-imageLength)/2;
+        int x = level.start.y*(level.blockLength+5)+level.verticalOffset+(level.blockLength-imageLength)/2;
+        g.drawImage(start,x,y,imageLength,imageLength,null);
+        y = level.end.x*(level.blockLength+5)+level.horizontalOffset+(level.blockLength-imageLength)/2;
+        x = level.end.y*(level.blockLength+5)+level.verticalOffset+(level.blockLength-imageLength)/2;
+        g.drawImage(end,x,y,imageLength,imageLength,null);
     }
 }

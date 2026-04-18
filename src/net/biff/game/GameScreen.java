@@ -12,6 +12,7 @@ public class GameScreen extends JPanel {
     Win win;
     BufferedImage start;
     BufferedImage end;
+    Font font;
     public GameScreen(Level level, Win win){
         this.level=level;
         this.win = win;
@@ -23,28 +24,33 @@ public class GameScreen extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        int i = 2;
+        boolean cont = true;
+        Graphics g = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB).getGraphics();
+        while (cont){
+            Font f = new Font("Times New Roman",Font.PLAIN,i);
+            g.setFont(f);
+            FontMetrics fm = g.getFontMetrics();
+            cont = fm.getHeight() <= level.verticalOffset*0.8 && i < 26;
+            i++;
+        }
+        font = new Font("Times New Roman",Font.PLAIN,i-1);
     }
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.setFont(font);
         for (Block[] row : level.blockMap){
             for (Block block : row){
                 block.draw(g);
             }
         }
-        if (win.won.equals(WinState.WON)){
-            Graphics2D g2d = (Graphics2D) g;
-            Font f = new Font("Times New Roman",Font.PLAIN, 25);
-            g2d.setFont(f);
-            FontMetrics fm = g2d.getFontMetrics(f);
-            g2d.drawString("Won",level.windowWidth/2-fm.stringWidth("Won"),level.verticalOffset/2);
-        }else if (win.won.equals(WinState.LOST)){
-            Graphics2D g2d = (Graphics2D) g;
-            Font f = new Font("Times New Roman",Font.PLAIN, 25);
-            g2d.setFont(f);
-            FontMetrics fm = g2d.getFontMetrics(f);
-            g2d.drawString("lost",level.windowWidth/2-fm.stringWidth("Lost"),level.verticalOffset/2);
-        }
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLACK);
+        FontMetrics fm = g2d.getFontMetrics(font);
+        String words = (win.won == WinState.NONE)? "Click Space to let water Flow":((win.won==WinState.WON)? "Won":"Lost. Press Space to Restart");
+        g2d.drawString(words,(level.windowWidth-fm.stringWidth(words))/2,level.verticalOffset/2);
+
         int imageLength = (int) (level.blockLength*0.9);
         int y = level.start.x*(level.blockLength+5)+level.horizontalOffset+(level.blockLength-imageLength)/2;
         int x = level.start.y*(level.blockLength+5)+level.verticalOffset+(level.blockLength-imageLength)/2;

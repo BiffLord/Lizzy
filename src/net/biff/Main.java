@@ -9,9 +9,9 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 public class Main{
-    private static Image favicon = new ImageIcon(Main.class.getResource("/favicon.png")).getImage();
+    private static final Image favicon = new ImageIcon(Main.class.getResource("/favicon.png")).getImage();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
         //Map Selector
         JFrame fr = new JFrame("Map Selector");
@@ -53,8 +53,7 @@ public class Main{
                 lines.add(line);
             }
         }
-        Level l = new Level(lines);
-        return l;
+        return new Level(lines);
     }
     public static void gameWindow(String link) throws IOException {
         Level l = getLevel(link);

@@ -8,7 +8,6 @@ import java.util.List;
 
 public class WaterManager {
     private final Level level;
-    boolean first = true;
     private final List<Point> paths = new ArrayList<>();
     public WaterManager(Level level) {
         this.level = level;

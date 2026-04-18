@@ -17,7 +17,7 @@ public class GameScreen extends JPanel {
         this.level=level;
         this.win = win;
         try (InputStream iss = GameScreen.class.getResourceAsStream("/startNoBG.png");
-             InputStream ise = GameScreen.class.getResourceAsStream("/bukkitNoBG.png");){
+             InputStream ise = GameScreen.class.getResourceAsStream("/bukkitNoBG.png")){
             assert iss != null && ise != null;
             start = ImageIO.read(iss);
             end = ImageIO.read(ise);

@@ -1,9 +1,37 @@
 # Maps
+## Meta-Data
+Start the map with a Meta-Inf section to define anything
+important. Meta-Inf tags
+* Name - name of the map
+* Creator - Map Creator
+* Horizontal-Blocks - number of columns
+* Vertical-Blocks - number of rows
+* Start - start point (row, column) and 0 indexed
+* End - end point (row, column) and 0 indexed
+* Block-Length - pixel side length of a block
+* Window Height - window height
+* Window Width - window width
+* Horizontal-Offset: Right to board margin
+* Vertical-Offset: Top to board margin
+<br>
+*<br>Meta-Inf<br>
+Name: Pigglesworth<br>
+  Creator: Biff<br>
+  Horizontal-Blocks: 13<br>
+  Vertical-Blocks: 13<br>
+  Start: (0,6)<br>
+  End: (12,6)<br>
+  Block-Length: 60<br>
+  Window-Height: 900<br>
+  Window-Width: 900<br>
+  Horizontal-Offset: 27<br>
+  Vertical-Offset: 27*
+
 ## Custom Maps
 ### Colors
 First, you must define the colors upu will use. 0 is
 reserved for the walls and path and will never be
-toggelable. For defining colors, you have two options.
+toggleable. For defining colors, you have two options.
 Putting <br>
 *C reg* <br>
 will give you the same colors as in the default map.<br><br>
@@ -17,6 +45,8 @@ Alternatively, you could define custom colors like this<br>
 while all the rest only get one number. You don't have to
 use numbers for color definitions. All colors must be given a 
 1 character identifier. Yes, emoji's work if you feel so inclined.
+Currently, custom color definitions are unspported haha...
+I forgot...
 ### Board
 First, write def board to indicate board definition is starting.
 Then, 10 by 10 grid of indentifiers.
@@ -49,8 +79,20 @@ etc. The file, while effectivly a text file, should be
 stored as a .lizzy file.<br>
 *level.lizzy*
 ## Example
+Meta-Inf<br>
+Name: Pigglesworth<br>
+Creator: Biff<br>
+Horizontal-Blocks: 10<br>
+Vertical-Blocks: 10<br>
+Start: (0,6)<br>
+End: (5,5)<br>
+Block-Length: 60<br>
+Window-Height: 900<br>
+Window-Width: 900<br>
+Horizontal-Offset: 27<br>
+Vertical-Offset: 27<br><br>
 C reg<br>
-//default colors<br>
+//default colors<br><br>
 def board<br>
 1O 0C 0O 0O 0O 0C 0C 0C 0C 0O<br>
 0O 2C 0O 0C 0O 0C 0C 0O 3O 0O<br>

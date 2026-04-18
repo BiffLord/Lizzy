@@ -18,8 +18,9 @@ from a wonderful novel, and because Lazzy looks like
 Lazy, it was renamed to Lizzy.
 
 ## Maps
-Currently, the maps are emmbedded into the game. 
-At some point the game will likely be updated to store the
-maps on a seperate repo, and access them via HTTP requests.
+The maps are retrieved from another GitHub Repository meaning
+this game requires an internet connection to run (at least
+before the map finishes loading, afterwards an internet connection
+is not required).
 ### Custom Maps
 See [MAPSREADME.md](https://github.com/BiffLord/Lizzy/blob/master/MAPSREADME.md)

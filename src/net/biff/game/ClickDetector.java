@@ -7,58 +7,29 @@ import java.awt.event.MouseEvent;
 
 public class ClickDetector extends MouseAdapter {
     private final GameScreen screen;
-    private final WaterManager wm;
-    private boolean active = false;
-    Win win;
-    public ClickDetector(GameScreen screen,WaterManager wm, Win win){
+    KeyDetector kd;
+    public ClickDetector(GameScreen screen,KeyDetector kd){
         this.screen = screen;
-        this.wm = wm;
-        this.win = win;
+        this.kd=kd;
     }
     @Override
     public void mouseReleased(MouseEvent e){
-        if (active){
-            return;
-        }
-        if (win.won != WinState.NONE){
-            wm.dry();
-            win.won = WinState.NONE;
-            screen.repaint();
+        if (kd.active){
             return;
         }
         int x = e.getX();
         int y = e.getY();
         //Hey Plaatic, some help overhere?
         int padded = screen.level.blockLength+5;
-        int row = (y-screen.level.verticalOffset)/padded;
-        int col = (x-screen.level.horizontalOffset)/padded;
-        System.out.println(col);
+        float row = (y-screen.level.verticalOffset)/(float)padded;
+        float col = (x-screen.level.horizontalOffset)/(float)padded;
         if (col < 0 ||
                 col >= screen.level.horizontalBlocks ||
                 row < 0 ||
                 row >= screen.level.verticalBlocks){
-            //water();
-            active = true;
-            Timer t = new Timer(500,null);
-            t.addActionListener(_ ->{
-                boolean cont = wm.spreadWater();
-                if (!cont){
-                    t.stop();
-                    win.won = WinState.LOST;
-                    active = false;
-                }
-                if (win.checkWin()){
-                    t.stop();
-                    active = false;
-                }
-                SwingUtilities.invokeLater(screen::repaint);
-
-
-            });
-            t.start();
             return;
         }
-        Color color = screen.level.blockMap[row][col].color;
+        Color color = screen.level.blockMap[(int)row][(int)col].color;
         if (color == null){
             return;
         }

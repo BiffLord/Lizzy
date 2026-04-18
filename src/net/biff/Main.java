@@ -64,8 +64,10 @@ public class Main{
         Win win = new Win(l);
         var screen = new GameScreen(l, win);
         WaterManager wm = new WaterManager(l);
+        KeyDetector keyDetector = new KeyDetector(screen,wm,win);
         frame.setSize(l.windowWidth,l.windowHeight);
-        screen.addMouseListener(new ClickDetector(screen,wm,win));
+        frame.addKeyListener(keyDetector);
+        screen.addMouseListener(new ClickDetector(screen,keyDetector));
         frame.add(screen);
         frame.setVisible(true);
     }

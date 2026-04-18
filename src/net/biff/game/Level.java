@@ -92,6 +92,7 @@ public class Level {
             String[] entry = line.split(": ");
             String number = "[0-9]+";
             switch (entry[0].toLowerCase()){
+                case "name": name = entry[1]; break;
                 case "creator": creator = entry[1]; break;
                 case "horizontal-blocks":
                     if (entry[1].matches(number)){

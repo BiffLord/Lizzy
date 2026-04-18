@@ -58,7 +58,7 @@ public class Main{
     }
     public static void gameWindow(String link) throws IOException {
         Level l = getLevel(link);
-        JFrame frame = new JFrame("Lizzy");
+        JFrame frame = new JFrame("Lizzy - "+l.name);
         frame.setIconImage(favicon);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Win win = new Win(l);

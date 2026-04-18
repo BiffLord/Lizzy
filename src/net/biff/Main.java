@@ -63,8 +63,7 @@ public class Main{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Win win = new Win(l);
         var screen = new GameScreen(l, win);
-        WaterManager wm = new WaterManager(l);
-        KeyDetector keyDetector = new KeyDetector(screen,wm,win);
+        KeyDetector keyDetector = new KeyDetector(screen,win);
         frame.setSize(l.windowWidth,l.windowHeight);
         frame.addKeyListener(keyDetector);
         screen.addMouseListener(new ClickDetector(screen,keyDetector));
